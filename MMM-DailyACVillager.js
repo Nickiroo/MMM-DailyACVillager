@@ -43,11 +43,9 @@ Module.register("MMM-DailyPokemon", {
 	getData: function(wrapper) { //Sends XHTTPRequest
 		var self = this;
 		var villNumber = Math.round(Math.random()*(this.config.maxVill - this.config.minVill) + this.config.minVill);
-		var apiURL = "https://pokeapi.co/api/v2/pokemon/" + villNumber + "/";
+		var apiURL = "http://acnhapi.com/v1/villagers/" + villNumber + "/";
 		var httpRequest = new XMLHttpRequest();
 
-		var languageApiURL = "http://acnhapi.com/v1/villagers/" + villNumber + "/";
-		var languageHttpRequest = new XMLHttpRequest();
 		var translatedName;
 		var languageChosen = this.config.language;
 
@@ -58,8 +56,6 @@ Module.register("MMM-DailyPokemon", {
 				console.log(JSON.parse(this.responseText));
 				var responsePokemon = JSON.parse(this.responseText);
 				Log.log(responsePokemon);
-				languageHttpRequest.open("GET", languageApiURL, true);
-				languageHttpRequest.send();
 
 
 				self.createContent(responsePokemon, wrapper);

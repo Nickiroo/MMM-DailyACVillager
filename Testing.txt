@@ -1,0 +1,16 @@
+{
+            module: "MMM-DailyACVillager",
+            position: "top_center",
+            config: {
+                updateInterval: 600000,
+                minVill: 4,
+                maxVill: 151,
+                grayscale: true,
+                showType: true,
+                language: "en",
+                genera: true,
+                gbaMode: true,
+                nameSize: 26,
+                flavorText: false
+            }
+        }

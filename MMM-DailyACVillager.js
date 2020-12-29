@@ -10,7 +10,6 @@ Module.register("MMM-DailyPokemon", {
 		genera: true,  //Sub-description for the villager
 		gbaMode: true, //Changes font to GBA style
 		nameSize: 32, //Changes header size - px
-		flavorText: false,  //Displays flavor text for the villager
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -72,68 +71,44 @@ Module.register("MMM-DailyPokemon", {
 		pokeWrapper.id = "poke-info";
 		var flexWrapper = document.createElement("div");
 		flexWrapper.id = "flex-wrapper";
-		var pokeName = document.createElement("p");
+		var villName= document.createElement("p");
 		//TODO - maybe add an option to get rid of Pokedex #
-		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
-		pokeName.id = "poke-name";
+		villName.innerHTML = data.name.charAt(0).toUpperCase() + data.name["name-USen"] + " - #" + data.id;
+		villName.id = "poke-name";
 
-		if(this.config.gbaMode) pokeName.style.fontFamily = "'acfontfam'";
+		if(this.config.gbaMode) villName.style.fontFamily = "'acfontfam'";
 
 		// Font size/style modification
 		if(this.config.nameSize != 32) {
 			if(this.config.gbaMode){
-				pokeName.style.cssText = "font-size:" + this.config.nameSize + "px; font-family: 'acfontfam';";
+				villName.style.cssText = "font-size:" + this.config.nameSize + "px; font-family: 'acfontfam';";
 			} else {
-				pokeName.style.cssText = "font-size:" + this.config.nameSize + "px;";
+				villName.style.cssText = "font-size:" + this.config.nameSize + "px;";
 			}
 		} else if(this.config.nameSize == 32) {//Changing default size if gbaMode is enabled without size changes added
 			if(this.config.gbaMode){
-				pokeName.style.cssText = "font-size: 22px; font-family: 'acfontfam';";
+				villName.style.cssText = "font-size: 22px; font-family: 'acfontfam';";
 			}
 		}
 
-		wrapper.appendChild(pokeName);
+		wrapper.appendChild(villName);
 
 		if(this.config.genera){
-			var pokeSubName = document.createElement("p");
+			var villSubName = document.createElement("p");
 			//TODO - maybe add an option to get rid of Pokedex #
-			pokeSubName.id = "poke-subname";
-			if(this.config.gbaMode) pokeSubName.style.cssText = "font-family: 'acfontfam'";
-			wrapper.appendChild(pokeSubName);
+			villSubName.id = "poke-subname";
+			if(this.config.gbaMode) villSubName.style.cssText = "font-family: 'acfontfam'";
+			wrapper.appendChild(villSubName);
 		}
 
 		var pokePic = document.createElement("img");
-		pokePic.src = data.sprites.front_default;
+		pokePic.src = data.icon_uri;
 		pokePic.id = "poke-pic";
 		if(this.config.grayscale) {
 			pokePic.id = "poke-pic-grayscale";
 		}
 		pokeWrapper.appendChild(pokePic);
 
-		var types = document.createElement("div");
-		types.id = "poke-types";
-		var type1 = document.createElement("span");
-		var type1Img = document.createElement("img");
-		type1Img.src = "https://serebii.net/pokedex-dp/type/" + data.types[0].type.name + ".gif"
-		if(this.config.grayscale){
-				type1Img.id = "poke-pic-grayscale-type"
-			}
-		type1.appendChild(type1Img);
-		//type1.innerHTML = data.types[0].type.name.charAt(0).toUpperCase() + data.types[0].type.name.slice(1);
-		types.appendChild(type1);
-		if(data.types[1]){
-			var type2 = document.createElement("span");
-			var type2Img = document.createElement("img");
-			if(this.config.grayscale){
-				type2Img.id = "poke-pic-grayscale-type"
-			}
-			type2Img.src = "https://serebii.net/pokedex-dp/type/" + data.types[1].type.name + ".gif"
-			//type2.innerHTML = data.types[1].type.name.charAt(0).toUpperCase() + data.types[1].type.name.slice(1)
-			type2.appendChild(type2Img);
-			types.appendChild(type2);
-		}
-		pokeWrapper.appendChild(types);
-		flexWrapper.appendChild(pokeWrapper);
 
 		statWrapper = document.createElement("div");
 		//TODO - Add in a stats table
@@ -144,13 +119,25 @@ Module.register("MMM-DailyPokemon", {
 			for(let i=5; i>=0; i--){//Inverted to list stats in right order
 				let tr = document.createElement("tr");
 				let tdName = document.createElement("td");
-				let tdStat = document.createElement("td");
+				let tdPersonality = document.createElement("td");
+				let tdSpecies = document.createElement("td");
+				let tdBirthday = document.createElement("td");
+				let tdGender = document.createElement("td");
+				let tdCatchphrase = document.createElement("td");
 
-				tdName.innerHTML = this.translate(data.stats[i].stat.name);
-				tdStat.innerHTML = data.stats[i].base_stat;
+				tdName.innerHTML = "personality";
+				tdPersonality.innerHTML = data.personality;
+				tdSpecies.innerHTML =  data.species;
+				tdBirthday.innerHTML = data.birthday;
+				tdGender.innerHTML = data.gender;
+				tdCatchphrase.innerHTML = data.catchphrase;
 
 				tr.appendChild(tdName);
-				tr.appendChild(tdStat);
+				tr.appendChild(tdPersonality);
+				tr.appendChild(tdSpecies);
+				tr.appendChild(tdBirthday);
+				tr.appendChild(tdGender);
+				tr.appendChild(tdCatchphrase);
 				statTable.appendChild(tr);
 			}
 
@@ -159,24 +146,6 @@ Module.register("MMM-DailyPokemon", {
 		}
 		wrapper.appendChild(flexWrapper);
 
-		if (this.config.flavorText) {
-			var flavorTextWrapper = document.createElement("div");
-			flavorTextWrapper.id = "flavor-text-wrapper";
-
-			var flavorText = document.createElement("p");
-			flavorText.innerHTML = data.flavorTextDisplay ? data.flavorTextDisplay : "";
-			flavorText.id = "flavor-text";
-
-			flavorText.style.fontSize = "24px";
-			flavorText.style.lineHeight = "1.5";
-			if (this.config.gbaMode) {
-				flavorText.style.fontFamily = "'acfontfam'";
-				flavorText.style.fontSize = "18px";
-			}
-
-			flavorTextWrapper.appendChild(flavorText);
-			wrapper.appendChild(flavorTextWrapper);
-		}
 	},
 
 	getStyles: function() {

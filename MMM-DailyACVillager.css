@@ -55,10 +55,6 @@
 	filter: grayscale(100%);
 }
 
-#poke-types {
-	padding: 0px;
-}
-
 #poke-types span {
 	text-decoration: none;
 	display: inline-block;

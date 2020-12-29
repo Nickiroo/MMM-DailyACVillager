@@ -1,9 +1,9 @@
 Module.register("MMM-DailyPokemon", {
 	defaults: {
 		updateInterval: 86400000, //1 Day
-		grayscale: true,//Turns pokemon image and type images gray to match magic mirror styles
-		minVill: 1, //Default to all pokemon
-		maxVill: 802,//Highest number - 802 pokemon currently exist
+		grayscale: true,//Turns villager image and type images gray to match magic mirror styles
+		minVill: 1, //Default to all villagers
+		maxVill: 391,//Highest number -391 villagers are available for the module
 		showType: true, //Shows type icons below villager's image
 		stats: true,  //Displays villager trait table
 		language: "en",
@@ -32,8 +32,8 @@ Module.register("MMM-DailyPokemon", {
 			wrapper.style.width = "200px";
 		}
 		var header = document.createElement("h4");
-		header.innerHTML = "Daily Pokemon";
-		header.id = "poke-header";
+		header.innerHTML = "Daily Villager";
+		header.id = "vill-header";
 
 		//wrapper.appendChild(header);
 		this.getData(wrapper);//Sending the request
@@ -51,51 +51,7 @@ Module.register("MMM-DailyPokemon", {
 		var translatedName;
 		var languageChosen = this.config.language;
 
-		languageHttpRequest.onreadystatechange = function() {
-			if(this.readyState == 4 && this.status == 200) {
-				var response = JSON.parse(this.responseText);
-				Log.log(response);
-
-				if(self.config.genera){
-					response.genera.forEach(genera => {
-						if(genera.language.name == languageChosen){
-							var pokeSubName = document.getElementById("poke-subname");
-							pokeSubName.innerHTML = genera.genus
-						}
-					});
-				}
-
-				// Get Translated Name and Flavor Text
-				if(languageChosen){
-					response.names.forEach(nameObject => {
-						if(nameObject.language.name == languageChosen){
-							translatedName = nameObject.name;
-							var pokeName = document.getElementById("poke-name");
-							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + villNumber
-						}
-					});
-
-					var flavorTextDisplay = document.getElementById("flavor-text");
-
-					if (flavorTextDisplay) {
-						function checkLanguage(obj) {
-							return obj.language.name == languageChosen
-						}
-						// get first flavor text matching selected language
-						var flavorTextObj = response.flavor_text_entries.find(checkLanguage);
-						// remove carriage returns, newlines, form-feeds for clean display
-						var sanitizedText = flavorTextObj.flavor_text.replace(/\r\n/g, "")
-						sanitizedText = sanitizedText.replace(/\f/g, " ")
-
-						flavorTextDisplay.innerHTML = sanitizedText
-					}
-				}
-			}
-			 else {
-				 return "Loading...";
-			 }
-
-		}
+	
 
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {

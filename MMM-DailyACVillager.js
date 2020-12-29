@@ -2,15 +2,15 @@ Module.register("MMM-DailyPokemon", {
 	defaults: {
 		updateInterval: 86400000, //1 Day
 		grayscale: true,//Turns pokemon image and type images gray to match magic mirror styles
-		minPoke: 1, //Default to all pokemon
-		maxPoke: 802,//Highest number - 802 pokemon currently exist
-		showType: true, //Shows type icons below pokemon's image
-		stats: true,  //Displays pokemon stat table
+		minVill: 1, //Default to all pokemon
+		maxVill: 802,//Highest number - 802 pokemon currently exist
+		showType: true, //Shows type icons below villager's image
+		stats: true,  //Displays villager trait table
 		language: "en",
-		genera: true,  //Sub-description for the pokemon
+		genera: true,  //Sub-description for the villager
 		gbaMode: true, //Changes font to GBA style
 		nameSize: 32, //Changes header size - px
-		flavorText: false,  //Displays flavor text for the pokemon
+		flavorText: false,  //Displays flavor text for the villager
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -42,11 +42,11 @@ Module.register("MMM-DailyPokemon", {
 
 	getData: function(wrapper) { //Sends XHTTPRequest
 		var self = this;
-		var pokeNumber = Math.round(Math.random()*(this.config.maxPoke - this.config.minPoke) + this.config.minPoke);
-		var apiURL = "https://pokeapi.co/api/v2/pokemon/" + pokeNumber + "/";
+		var villNumber = Math.round(Math.random()*(this.config.maxVill - this.config.minVill) + this.config.minVill);
+		var apiURL = "https://pokeapi.co/api/v2/pokemon/" + villNumber + "/";
 		var httpRequest = new XMLHttpRequest();
 
-		var languageApiURL = "https://pokeapi.co/api/v2/pokemon-species/" + pokeNumber + "/";
+		var languageApiURL = "http://acnhapi.com/v1/villagers/" + villNumber + "/";
 		var languageHttpRequest = new XMLHttpRequest();
 		var translatedName;
 		var languageChosen = this.config.language;
@@ -71,7 +71,7 @@ Module.register("MMM-DailyPokemon", {
 						if(nameObject.language.name == languageChosen){
 							translatedName = nameObject.name;
 							var pokeName = document.getElementById("poke-name");
-							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + pokeNumber
+							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + villNumber
 						}
 					});
 

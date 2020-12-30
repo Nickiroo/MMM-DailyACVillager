@@ -3,7 +3,7 @@
 	src: url(fonts/FinkHeavy.ttf);
 	}
 
-#poke-wrapper {
+#vill-wrapper {
 	margin-left: auto;
 	margin-right: auto;
 	/*position: relative;
@@ -21,25 +21,25 @@
 	align-content: center;
 }
 
-#poke-name {
+#vill-name {
 	border-bottom: 1px solid white;
 	color: white;
 	text-align: center;
 	margin-bottom: 30px;
 }
 
-#poke-subname {
+#vill-subname {
 	text-align: center;
 	font-size: 0.6em;
 	margin-top: -20px;
 }
 
-#poke-pic {
+#vill-pic {
 	width: 100px;
 	height: auto;
 }
 
-#poke-pic-grayscale {
+#vill-pic-grayscale {
 	position: relative;
 	bottom: 50px;
 	width: 200px;
@@ -47,7 +47,7 @@
 	filter: grayscale(100%);
 }
 
-#poke-pic-grayscale-type {
+#vill-pic-grayscale-type {
 	position: relative;
 	bottom: 100px;
 	width: 50px;
@@ -55,27 +55,31 @@
 	filter: grayscale(100%);
 }
 
-#poke-types span {
+#vill-types {
+	padding: 0px;
+}
+
+#vill-types span {
 	text-decoration: none;
 	display: inline-block;
 	margin-right: 3px;
 	padding: 0px;
 }
 
-#poke-wrapper table {
+#vill-wrapper table {
 	line-height: 1em;
 }
 
-#poke-wrapper #poke-info{
+#vill-wrapper #vill-info{
 	text-align: center;
 }
-#poke-wrapper table tr td {
+#vill-wrapper table tr td {
 	font-size: 12pt;
 	padding: 0px;
 	text-transform: capitalize;
 }
 
-#poke-table-name {
+#vill-table-name {
 	color: DDD;
 	font-weight: 800;
 	text-align: left;

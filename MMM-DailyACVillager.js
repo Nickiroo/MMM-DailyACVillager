@@ -1,7 +1,7 @@
-Module.register("MMM-DailyPokemon", {
+Module.register("MMM-DailyACVillager", {
 	defaults: {
 		updateInterval: 86400000, //1 Day
-		grayscale: true,//Turns villager image and type images gray to match magic mirror styles
+		grayscale: false,//Turns villager image and type images gray to match magic mirror styles
 		minVill: 1, //Default to all villagers
 		maxVill: 391,//Highest number -391 villagers are available for the module
 		showType: true, //Shows type icons below villager's image
@@ -24,7 +24,7 @@ Module.register("MMM-DailyPokemon", {
 
 	getDom: function() { //Creating initial div
 		var wrapper = document.createElement("div");
-		wrapper.id = "poke-wrapper";
+		wrapper.id = "vill-wrapper";
 		if(this.config.stats === true){
 			wrapper.style.width = "400px";
 		} else {
@@ -45,19 +45,16 @@ Module.register("MMM-DailyPokemon", {
 		var apiURL = "http://acnhapi.com/v1/villagers/" + villNumber + "/";
 		var httpRequest = new XMLHttpRequest();
 
-		var translatedName;
-		var languageChosen = this.config.language;
-
 	
 
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
 				console.log(JSON.parse(this.responseText));
-				var responsePokemon = JSON.parse(this.responseText);
-				Log.log(responsePokemon);
+				var responsevillmon = JSON.parse(this.responseText);
+				Log.log(responsevillmon);
 
 
-				self.createContent(responsePokemon, wrapper);
+				self.createContent(responsevillmon, wrapper);
 			} else {
 				return "Loading...";
 			}
@@ -67,14 +64,14 @@ Module.register("MMM-DailyPokemon", {
 	},
 
 	createContent: function(data, wrapper) { //Creates the elements for display
-		var pokeWrapper = document.createElement("div");
-		pokeWrapper.id = "poke-info";
+		var villWrapper = document.createElement("div");
+		villWrapper.id = "vill-info";
 		var flexWrapper = document.createElement("div");
 		flexWrapper.id = "flex-wrapper";
 		var villName= document.createElement("p");
-		//TODO - maybe add an option to get rid of Pokedex #
-		villName.innerHTML = data.name.charAt(0).toUpperCase() + data.name["name-USen"] + " - #" + data.id;
-		villName.id = "poke-name";
+		//TODO - maybe add an option to get rid of villdex #
+		villName.innerHTML = data.name["name-USen"] + " - #" + data.id;
+		villName.id = "vill-name";
 
 		if(this.config.gbaMode) villName.style.fontFamily = "'acfontfam'";
 
@@ -95,20 +92,20 @@ Module.register("MMM-DailyPokemon", {
 
 		if(this.config.genera){
 			var villSubName = document.createElement("p");
-			//TODO - maybe add an option to get rid of Pokedex #
-			villSubName.id = "poke-subname";
+			//TODO - maybe add an option to get rid of villdex #
+			villSubName.id = "vill-subname";
 			if(this.config.gbaMode) villSubName.style.cssText = "font-family: 'acfontfam'";
 			wrapper.appendChild(villSubName);
 		}
 
-		var pokePic = document.createElement("img");
-		pokePic.src = data.icon_uri;
-		pokePic.id = "poke-pic";
+		var villPic = document.createElement("img");
+		villPic.src = data.icon_uri;
+		villPic.id = "vill-pic";
 		if(this.config.grayscale) {
-			pokePic.id = "poke-pic-grayscale";
+			villPic.id = "vill-pic-grayscale";
 		}
-		pokeWrapper.appendChild(pokePic);
-
+		villWrapper.appendChild(villPic);
+		flexWrapper.appendChild(villWrapper);
 
 		statWrapper = document.createElement("div");
 		//TODO - Add in a stats table
@@ -116,30 +113,56 @@ Module.register("MMM-DailyPokemon", {
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'acfontfam'";
 
-			for(let i=5; i>=0; i--){//Inverted to list stats in right order
-				let tr = document.createElement("tr");
-				let tdName = document.createElement("td");
+			//for(let i=5; i>=0; i--){//Inverted to list stats in right order
+				let trPersonality = document.createElement("tr");
 				let tdPersonality = document.createElement("td");
+                                let tdName = document.createElement("td");
+				let trSpecies = document.createElement("tr");
 				let tdSpecies = document.createElement("td");
+				let tdSpeciesName = document.createElement("td");
+				let trBirthday = document.createElement("tr");
+				let tdBirthdayName = document.createElement("td");
 				let tdBirthday = document.createElement("td");
+				let trGender = document.createElement("tr");
+				let tdGenderName = document.createElement("td");
 				let tdGender = document.createElement("td");
+				let trCatchphrase = document.createElement("tr");
+				let tdCatchphraseName = document.createElement("td");
 				let tdCatchphrase = document.createElement("td");
 
 				tdName.innerHTML = "personality";
 				tdPersonality.innerHTML = data.personality;
-				tdSpecies.innerHTML =  data.species;
+				tdSpeciesName.innerHTML = "species";
+				tdSpecies.innerHTML = data.species;
+				tdBirthdayName.innerHTML = "birthday";
 				tdBirthday.innerHTML = data.birthday;
+				tdGenderName.innerHTML = "gender";
 				tdGender.innerHTML = data.gender;
-				tdCatchphrase.innerHTML = data.catchphrase;
+				tdCatchphraseName.innerHTML = "catchphrase";
+				tdCatchphrase.innerHTML = data["catch-phrase"];
 
-				tr.appendChild(tdName);
-				tr.appendChild(tdPersonality);
-				tr.appendChild(tdSpecies);
-				tr.appendChild(tdBirthday);
-				tr.appendChild(tdGender);
-				tr.appendChild(tdCatchphrase);
-				statTable.appendChild(tr);
-			}
+				trPersonality.appendChild(tdName);
+				trPersonality.appendChild(tdPersonality);
+	
+				trSpecies.appendChild(tdSpeciesName);
+				trSpecies.appendChild(tdSpecies);
+
+
+				trBirthday.appendChild(tdBirthdayName);
+				trBirthday.appendChild(tdBirthday);
+
+				trGender.appendChild(tdGenderName);
+				trGender.appendChild(tdGender);
+
+				trCatchphrase.appendChild(tdCatchphraseName);
+				trCatchphrase.appendChild(tdCatchphrase);
+
+				statTable.appendChild(trPersonality);
+				statTable.appendChild(trSpecies);
+				statTable.appendChild(trBirthday);
+				statTable.appendChild(trGender);
+				statTable.appendChild(trCatchphrase);
+			//}
 
 			statWrapper.appendChild(statTable);
 			flexWrapper.appendChild(statWrapper);
@@ -150,12 +173,5 @@ Module.register("MMM-DailyPokemon", {
 
 	getStyles: function() {
 		return [this.file('MMM-DailyACVillager.css')]
-	},
-
-	getTranslations: function() {
-		return {
-			en: "translations/en.json",
-			fr: "translations/fr.json"
-		}
 	}
 	});

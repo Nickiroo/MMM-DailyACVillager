@@ -1,5 +1,5 @@
-//alright listen up im shit at coding and this is probably the scrappiest mf magic mirror module you've ever seen i just
-//wanted to make somethin cool for my girlfriend
+/*alright listen up im shit at coding and this is probably the scrappiest mf magic mirror module you've ever seen i just
+wanted to make somethin cool for my girlfriend*/
 
 
 Module.register("MMM-DailyACVillager", {
@@ -110,9 +110,10 @@ Module.register("MMM-DailyACVillager", {
 		flexWrapper.appendChild(villWrapper);
 
 		statWrapper = document.createElement("div");
-		
-		//If the stats table is enabled in the user's config then it will show the villager's name, personality
-		//type, species, birthday, gender, and catchphrase. 
+
+
+		/*If the stats table is enabled in the user's config then it will show the villager's name, personality
+		type, species, birthday, gender, and catchphrase.  */
 		if(this.config.stats){
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'acfontfam'";

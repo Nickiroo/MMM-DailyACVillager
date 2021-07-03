@@ -1,0 +1,13 @@
+I've gotta go and 
+
+1) update the readme
+
+2) figure out a way to make a remote ssh setup so I can change the module from anywhere for renny
+
+3)get the default config sorted out 
+
+4) clean up code and add comments
+
+5) publish it so animal crossers everywhere can enjoy
+
+6) go cross some animals

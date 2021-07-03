@@ -1,6 +1,10 @@
+//alright listen up im shit at coding and this is probably the scrappiest mf magic mirror module you've ever seen i just
+//wanted to make somethin cool for my girlfriend
+
+
 Module.register("MMM-DailyACVillager", {
 	defaults: {
-		updateInterval: 86400000, //1 Day
+		updateInterval: 864000, //1 Day
 		grayscale: false,//Turns villager image and type images gray to match magic mirror styles
 		minVill: 1, //Default to all villagers
 		maxVill: 391,//Highest number -391 villagers are available for the module
@@ -39,13 +43,11 @@ Module.register("MMM-DailyACVillager", {
 		return wrapper;
 	},
 
-	getData: function(wrapper) { //Sends XHTTPRequest
+	getData: function(wrapper) { //Sends XHTTPRequest using the random villager's number and then returns stats
 		var self = this;
 		var villNumber = Math.round(Math.random()*(this.config.maxVill - this.config.minVill) + this.config.minVill);
 		var apiURL = "http://acnhapi.com/v1/villagers/" + villNumber + "/";
 		var httpRequest = new XMLHttpRequest();
-
-	
 
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
@@ -108,15 +110,16 @@ Module.register("MMM-DailyACVillager", {
 		flexWrapper.appendChild(villWrapper);
 
 		statWrapper = document.createElement("div");
-		//TODO - Add in a stats table
+		
+		//If the stats table is enabled in the user's config then it will show the villager's name, personality
+		//type, species, birthday, gender, and catchphrase. 
 		if(this.config.stats){
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'acfontfam'";
 
-			//for(let i=5; i>=0; i--){//Inverted to list stats in right order
 				let trPersonality = document.createElement("tr");
 				let tdPersonality = document.createElement("td");
-                                let tdName = document.createElement("td");
+                let tdName = document.createElement("td");
 				let trSpecies = document.createElement("tr");
 				let tdSpecies = document.createElement("td");
 				let tdSpeciesName = document.createElement("td");
@@ -147,7 +150,6 @@ Module.register("MMM-DailyACVillager", {
 				trSpecies.appendChild(tdSpeciesName);
 				trSpecies.appendChild(tdSpecies);
 
-
 				trBirthday.appendChild(tdBirthdayName);
 				trBirthday.appendChild(tdBirthday);
 
@@ -162,7 +164,6 @@ Module.register("MMM-DailyACVillager", {
 				statTable.appendChild(trBirthday);
 				statTable.appendChild(trGender);
 				statTable.appendChild(trCatchphrase);
-			//}
 
 			statWrapper.appendChild(statTable);
 			flexWrapper.appendChild(statWrapper);

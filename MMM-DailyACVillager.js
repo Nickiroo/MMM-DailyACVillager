@@ -144,7 +144,7 @@ Module.register("MMM-DailyACVillager", {
 				tdGender.innerHTML = data.gender;
 				tdCatchphraseName.innerHTML = "catchphrase";
 				tdCatchphrase.innerHTML = data["catch-phrase"];
-
+				//there is 100% a better way of doing this part in particular but again im new
 				trPersonality.appendChild(tdName);
 				trPersonality.appendChild(tdPersonality);
 	

@@ -1,6 +1,6 @@
 # MMM-DailyACVillager
 
-ALL CREDIT FOR THIS IDEA GOES TO NolanKingdon, creator of DailyPokemon module for the magic mirror
+Inspired by NolanKingdon, creator of the DailyPokemon module for the magic mirror
 
 This is a module for the MagicMirror².
 

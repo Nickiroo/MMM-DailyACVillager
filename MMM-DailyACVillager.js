@@ -1,7 +1,3 @@
-/*alright listen up im shit at coding and this is probably the scrappiest mf magic mirror module you've ever seen i just
-wanted to make somethin cool for my girlfriend*/
-
-
 Module.register("MMM-DailyACVillager", {
 	defaults: {
 		updateInterval: 864000, //1 Day

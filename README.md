@@ -19,6 +19,7 @@ cd MMM-DailyACVillager
 npm install
 To use this module, add the following configuration block to the modules array in the config/config.js file:
 
+```
 var config = {
     modules: [
         {
@@ -39,10 +40,15 @@ var config = {
         }
     ]
 }
+```
+
+<html><p>
 Configuration options
-Option	Description
-updateInterval	Optional How frequently you want it to update. Defaulted to once a day
-showType	Optional Displays the Villager's type
-grayscale	Optional Makes all images black and white to fit Mirror themes
-minVill	Optional Start of your range. MUST be at least 1.
-maxVill	Optional End of your range. MUST be 391 or below
+
+Option	            Description<br>
+updateInterval	    Optional How frequently you want it to update. Defaulted to once a day<br>
+showType	        Optional Displays the Villager's type<br>
+grayscale	        Optional Makes all images black and white to fit Mirror themes<br>
+minVill	            Optional Start of your range. MUST be at least 1.<br>
+maxVill	            Optional End of your range. MUST be 391 or below<br>
+</p></html>

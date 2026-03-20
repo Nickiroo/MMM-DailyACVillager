@@ -4,12 +4,6 @@ Inspired by NolanKingdon, creator of the DailyPokemon module for the magic mirro
 
 CURRENTLY OFFLINE
 
-## Coming updates:
-- Clean up the css and make it just in general better looking
-- Add a font option in the config to include animal crossing fonts
-- add background option
-- add different theme options that match vs code themes
-
 <hr>
 
 ### What am I looking at here?
